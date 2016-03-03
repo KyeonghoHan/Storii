@@ -27,8 +27,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 				where: pushQuery,      // for sending to a specific channel
 				data: {
 					"alert": message, 
-					"content-available": 1,
-					"notifType": 1
+					"content-available": 1
 			  	}
 			}, { 
 				success: function() {
