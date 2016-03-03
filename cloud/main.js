@@ -3,7 +3,7 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 Parse.Cloud.define('sendPush', function(request, response) {
 	
-	Parse.initialize('bf3d62c986203ffcef9a3bd96cc57a2c', '', '162c2b24ee9ac704bbf8d393c62078d3');
+	Parse.initialize(process.env.APP_ID, '', process.env.MASTER_KEY);
 	Parse.serverURL = 'https://mysnap.herokuapp.com/parse';
 	
 	// request has 2 parameters: params passed by the client and the authorized user
