@@ -12,8 +12,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	
 	// use to custom tweak whatever payload you wish to send
 	var userQuery = new Parse.Query(Parse.User);
-	userQuery.equalTo("objectId", userTo);
-	userQuery.first({
+	userQuery.get(userTo, {
 		success: function(quser) {
 			var payload = 	{
 				"data": 
