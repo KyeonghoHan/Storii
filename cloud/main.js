@@ -23,7 +23,8 @@ Parse.Cloud.define('sendPush', function(request, response) {
 				"data": 
 				{
 					"alert": message, 
-					"content-available": 1
+					"content-available": 1,
+					"badge" : 10
 			  	}
 			};
 			
