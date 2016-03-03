@@ -13,12 +13,14 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	var message = request.params.message;
 	
 	// use to custom tweak whatever payload you wish to send
+	/*
 	var query = new Parse.Query(Parse.User);
       	query.equalTo("objectId", userTo);
 
 	 // Get the first user which matches the above constraints.
       	query.first({
 		success: function(quser) {
+		*/
 			var payload = 	{
 				"data": 
 				{
@@ -29,7 +31,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			};
 			
 			var pushQuery = new Parse.Query(Parse.Installation);
-			pushQuery.equalTo("user", quser);
+			pushQuery.equalTo("deviceType", "ios");
 	
 			// Note that useMasterKey is necessary for Push notifications to succeed.
 			Parse.Push.send({
@@ -43,11 +45,11 @@ Parse.Cloud.define('sendPush', function(request, response) {
 				console.log("#### PUSH ERROR" + error.message);
 				response.error("error => " + error.message);
 			}, useMasterKey: true});
-		},
+		/*},
 		error: function(err) {
 			response.error(err);
 		}
-	});
+	});*/
 	
 
 	
