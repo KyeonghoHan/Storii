@@ -39,7 +39,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			response.success('success');
 		},
 		error: function() {
-			response.error('error : ' + userTo + " not found");
+			response.error(request);
 		}
 	});
 	
