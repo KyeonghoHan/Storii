@@ -13,9 +13,11 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	Parse.Cloud.useMasterKey();
 	
 	// use to custom tweak whatever payload you wish to send
-	var userColl = Parse.Object.extend("_User");
-	var userQuery = new Parse.Query(userColl);
-	userQuery.get(userTo, {
+	var query = new Parse.Query(Parse.User);
+      	query.equalTo("objectId", userTo);
+
+	 // Get the first user which matches the above constraints.
+      	query.first({
 		success: function(quser) {
 			var payload = 	{
 				"data": 
@@ -43,7 +45,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			response.success('success');
 		},
 		error: function(err) {
-			response.error(err);
+			response.error(userTo + " not found!");
 		}
 	});
 	
