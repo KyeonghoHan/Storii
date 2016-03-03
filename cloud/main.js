@@ -12,8 +12,6 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	// extract out the channel to send
 	var message = request.params.message;
 	
-	Parse.Cloud.useMasterKey();
-	
 	// use to custom tweak whatever payload you wish to send
 	var query = new Parse.Query(Parse.User);
       	query.equalTo("objectId", userTo);
