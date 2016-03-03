@@ -3,7 +3,7 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 Parse.Cloud.define('sendPush', function(request, response) {
 	
-	Parse.initialize('bf3d62c986203ffcef9a3bd96cc57a2c');
+	Parse.initialize('bf3d62c986203ffcef9a3bd96cc57a2c', '', '162c2b24ee9ac704bbf8d393c62078d3');
 	Parse.serverURL = 'https://mysnap.herokuapp.com/parse';
 	
 	// request has 2 parameters: params passed by the client and the authorized user
@@ -19,8 +19,28 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	 // Get the first user which matches the above constraints.
       	query.first({
 		success: function(quser) {
+			var payload = 	{
+				"data": 
+				{
+					"alert": message,
+			  	}
+			};
 			
-			response.success('success');
+			var pushQuery = new Parse.Query(Parse.Installation);
+			pushQuery.equalTo("user", quser);
+	
+			// Note that useMasterKey is necessary for Push notifications to succeed.
+			Parse.Push.send({
+				where: pushQuery,      // for sending to a specific channel
+				data: payload,
+			}, { 
+				success: function() {
+				console.log("#### PUSH OK");
+				response.success("PUSH SENT");
+			}, 	error: function(error) {
+				console.log("#### PUSH ERROR" + error.message);
+				response.error("error => " + error.message);
+			}, useMasterKey: true});
 		},
 		error: function(err) {
 			response.error(err);
