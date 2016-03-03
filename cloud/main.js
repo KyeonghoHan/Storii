@@ -14,7 +14,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	var userQuery = new Parse.Query(Parse.User);
 	userQuery.equalTo("objectId", userTo);
 	userQuery.first({
-		success: function(user) {
+		success: function(quser) {
 			var payload = 	{
 				"data": 
 				{
@@ -23,7 +23,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			};
 			
 			var pushQuery = new Parse.Query(Parse.Installation);
-			pushQuery.equalTo("user", user);
+			pushQuery.equalTo("user", quser);
 	
 			// Note that useMasterKey is necessary for Push notifications to succeed.
 			Parse.Push.send({
@@ -32,14 +32,16 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			}, { 
 				success: function() {
 				console.log("#### PUSH OK");
+				response.success("PUSH SENT");
 			}, 	error: function(error) {
 				console.log("#### PUSH ERROR" + error.message);
+				response.error("error => " + error.message);
 			}, useMasterKey: true});
 			
 			response.success('success');
 		},
 		error: function() {
-			response.error(request);
+			response.error("error => " + userTo + " not found");
 		}
 	});
 	
