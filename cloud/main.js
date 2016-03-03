@@ -5,10 +5,10 @@ Parse.Cloud.define('hello', function(req, res) {
 Parse.Cloud.define('sendPush', function(request, response) {
 	
 	// request has 2 parameters: params passed by the client and the authorized user
-	var userTo = request.userTo;
+	var userTo = request.params.userTo;
 	
 	// extract out the channel to send
-	var message = request.message;
+	var message = request.params.message;
 	
 	// use to custom tweak whatever payload you wish to send
 	var userQuery = new Parse.Query(Parse.User);
