@@ -47,7 +47,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
 		error: function(err) {
 			response.error(userTo + " not found!");
 		}
-	});
+	}, {useMasterKey: true});
 	
 
 	
