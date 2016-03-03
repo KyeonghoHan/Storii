@@ -4,6 +4,20 @@ Parse.Cloud.define('hello', function(req, res) {
 });
 Parse.Cloud.define('sendPush', function(request, response) {
 	
+	var q2 = new Parse.Query(Parse.User);
+	q2.find(
+			{
+				success:
+				function(items) {
+					response.success(items.length);
+					alert(items.length);
+				}
+		
+			}
+		);
+
+
+	
 	// request has 2 parameters: params passed by the client and the authorized user
 	var userTo = request.params.userTo;
 	
