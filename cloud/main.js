@@ -39,8 +39,8 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			
 			response.success('success');
 		},
-		error: function(error) {
-			response.error(error);
+		error: function(err) {
+			response.error(err);
 		}
 	});
 	
