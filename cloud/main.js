@@ -21,22 +21,17 @@ Parse.Cloud.define('sendPush', function(request, response) {
       	query.first({
 		success: function(quser) {
 		*/
-			var payload = 	{
-				"data": 
-				{
-					"alert": message, 
-					"content-available": 1,
-					"badge" : 10
-			  	}
-			};
-			
 			var pushQuery = new Parse.Query(Parse.Installation);
 			pushQuery.equalTo("deviceType", "ios");
 	
 			// Note that useMasterKey is necessary for Push notifications to succeed.
 			Parse.Push.send({
 				where: pushQuery,      // for sending to a specific channel
-				data: payload,
+				data: {
+					"alert": message, 
+					"content-available": 1,
+					"badge" : 10
+			  	}
 			}, { 
 				success: function() {
 				console.log("#### PUSH OK");
