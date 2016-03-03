@@ -20,7 +20,7 @@ Parse.Cloud.define('sendPush', function(request, response) {
       	query.first({
 		success: function(quser) {
 			var pushQuery = new Parse.Query(Parse.Installation);
-			pushQuery.equalTo("deviceType", quser);
+			pushQuery.equalTo("user", quser);
 	
 			// Note that useMasterKey is necessary for Push notifications to succeed.
 			Parse.Push.send({
