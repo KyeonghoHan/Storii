@@ -19,28 +19,6 @@ Parse.Cloud.define('sendPush', function(request, response) {
 	 // Get the first user which matches the above constraints.
       	query.first({
 		success: function(quser) {
-			var payload = 	{
-				"data": 
-				{
-					"alert": message,
-			  	}
-			};
-			
-			var pushQuery = new Parse.Query(Parse.Installation);
-			pushQuery.equalTo("user", quser);
-	
-			// Note that useMasterKey is necessary for Push notifications to succeed.
-			Parse.Push.send({
-				where: pushQuery,      // for sending to a specific channel
-				data: payload,
-			}, { 
-				success: function() {
-				console.log("#### PUSH OK");
-				response.success("PUSH SENT");
-			}, 	error: function(error) {
-				console.log("#### PUSH ERROR" + error.message);
-				response.error("error => " + error.message);
-			}, useMasterKey: true});
 			
 			response.success('success');
 		},
