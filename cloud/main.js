@@ -28,7 +28,8 @@ Parse.Cloud.define('sendPush', function(request, response) {
 				data: {
 					"alert": message, 
 					"content-available": 1
-			  	}
+			  	},
+			  	notifType: 1
 			}, { 
 				success: function() {
 				console.log("#### PUSH OK");
