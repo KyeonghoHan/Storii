@@ -37,6 +37,9 @@ Parse.Cloud.define('sendPush', function(request, response) {
 			}, useMasterKey: true});
 			
 			response.success('success');
+		},
+		error: function() {
+			response.error('error');
 		}
 	});
 	
