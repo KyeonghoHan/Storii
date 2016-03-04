@@ -23,7 +23,11 @@ Parse.Cloud.define('updateFromUserRequest', function(request, response) {
 			quser.addUnique("friendUserIds", toUserId);
 			
 			quser.save();
+			response.success("From User UPDATED");
 			
+		},
+		error: function(err) {
+			response.error(err);
 		}
       	});
 });
