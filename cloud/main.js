@@ -26,7 +26,7 @@ Parse.Cloud.define('updateFromUserRequest', function(request, response) {
 			
 		}
       	});
-}
+});
 
 Parse.Cloud.define('sendPush', function(request, response) {
 	
