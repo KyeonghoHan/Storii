@@ -7,7 +7,7 @@ Parse.Cloud.define('updateFromUserRequest', function(request, response) {
 	Parse.serverURL = "https://mysnap.herokuapp.com/parse";	
 	
 	var userTargetId = request.params.userTargetId;
-	var toUserId = request.params.toUserId
+	var toUserId = request.params.toUserId;
 	
 	// Get the user to update
 	var query = new Parse.Query(Parse.User);
