@@ -6,6 +6,8 @@ Parse.Cloud.define('updateFromUserRequest', function(request, response) {
 	Parse.initialize(process.env.APP_ID, '', process.env.MASTER_KEY);
 	Parse.serverURL = "https://mysnap.herokuapp.com/parse";	
 	
+	Parse.Cloud.useMasterKey();
+	
 	var userTargetId = request.params.userTargetId;
 	var toUserId = request.params.toUserId;
 	
