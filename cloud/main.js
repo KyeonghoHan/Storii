@@ -1,6 +1,33 @@
 Parse.Cloud.define('hello', function(req, res) {
   res.success('Hi');
 });
+
+Parse.Cloud.define('updateFromUserRequest', function(request, response) {
+	Parse.initialize(process.env.APP_ID, '', process.env.MASTER_KEY);
+	Parse.serverURL = "https://mysnap.herokuapp.com/parse";	
+	
+	var userTargetId = request.params.userTargetId;
+	var toUserId = request.params.toUserId
+	
+	// Get the user to update
+	var query = new Parse.Query(Parse.User);
+      	query.equalTo("objectId", userTargetId);
+
+      	query.first({
+		success: function(quser) {
+			
+			// -- Remove request from "from" user array
+			quser.remove("requestUserIds", toUserId);
+			
+			// -- Add friend to "from" user array
+			quser.addUnique("friendUserIds", toUserId);
+			
+			quser.save();
+			
+		}
+      	});
+}
+
 Parse.Cloud.define('sendPush', function(request, response) {
 	
 	Parse.initialize(process.env.APP_ID, '', process.env.MASTER_KEY);
