@@ -64,6 +64,48 @@ Parse.Cloud.define('acceptFromUserRequest', function(request, response) {
 });
 
 Parse.Cloud.define('sendPush', function(request, response) {
+	var sendNotification = function(data) {
+		var headers = {
+	    	"Content-Type": "application/json",
+	    	"Authorization": "Basic " + process.env.ONE_SIGNAL_REST_API
+	  	};
+	  
+	  	var options = {
+	    	host: "onesignal.com",
+	    	port: 443,
+			path: "/api/v1/notifications",
+	    	method: "POST",
+	    	headers: headers
+	  	};
+	  
+	  	var https = require('https');
+	  	var req = https.request(options, function(res) {  
+	  		res.on('data', function(data) {
+	    		console.log("Response:");
+	      		console.log(JSON.parse(data));
+	   		});
+	  	});
+	  
+	  	req.on('error', function(e) {
+	  		console.log("ERROR:");
+	    	console.log(e);
+	  	});
+	  
+	  	req.write(JSON.stringify(data));
+	  	req.end();
+	};
+	
+	var message = { 
+		app_id: process.env.ONE_SIGNAL_APP_ID,
+	  	contents: {"en": "English Message"},
+	  	included_segments: ["All"]
+	};
+	
+	sendNotification(message);
+});
+
+/*
+Parse.Cloud.define('sendPush', function(request, response) {
 	
 	Parse.initialize(process.env.APP_ID, '', process.env.MASTER_KEY);
 	Parse.serverURL = "https://mysnap.herokuapp.com/parse";
@@ -109,3 +151,4 @@ Parse.Cloud.define('sendPush', function(request, response) {
 
 	
 });
+*/
